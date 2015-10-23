@@ -26,6 +26,16 @@ UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFl
         let collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.backgroundView = {
+            let label = UILabel()
+            label.text = "Choose a photo from your library to get started"
+            label.font = UIFont.systemFontOfSize(26)
+            label.numberOfLines = 0
+            label.lineBreakMode = .ByWordWrapping
+            label.textAlignment = .Center
+            label.textColor = .whiteColor()
+            return label
+            }()
         collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
         
         return collectionView

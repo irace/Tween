@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationController = UINavigationController(rootViewController: ViewController())
         navigationController.toolbarHidden = false
         navigationController.navigationBarHidden = true
-        navigationController.toolbar.tintColor = UIColor.whiteColor()
-        navigationController.toolbar.barTintColor = UIColor.blackColor()
+        navigationController.toolbar.tintColor = .whiteColor()
+        navigationController.toolbar.barTintColor = .blackColor()
         
         window = UIWindow()
         window?.rootViewController = navigationController
