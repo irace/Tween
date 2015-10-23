@@ -8,7 +8,14 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    
+    struct Constants {
+        static let defaultIntermediateImageCount: Double = 0
+        static let maxIntermediateImageCount: Double = 2
+    }
+    
     lazy var collectionView: UICollectionView = {
         let frame = self.view.frame
         
@@ -24,16 +31,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return collectionView
     }()
     
+    lazy var actionButton: UIBarButtonItem = {
+        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButtonTapped")
+        actionButton.enabled = false
+        return actionButton
+    }()
+    
     lazy var stepper: UIStepper = {
         let stepper = UIStepper()
-        stepper.maximumValue = 2
+        stepper.maximumValue = Constants.maxIntermediateImageCount
         stepper.addTarget(self, action: "stepperChanged", forControlEvents: .ValueChanged)
         return stepper
     }()
     
     var imageSet: ImageSet? {
         didSet {
-            self.collectionView.reloadData()
+            actionButton.enabled = imageSet != nil
+            
+            collectionView.reloadData()
         }
     }
 
@@ -49,7 +64,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil),
             UIBarButtonItem(customView: stepper),
             UIBarButtonItem(barButtonSystemItem: .FlexibleSpace, target: nil, action: nil),
-            UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButtonTapped")
+            actionButton
         ]
     }
     
@@ -68,6 +83,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imageSet?.intermediateCount = Int(stepper.value)
     }
     
+    func actionButtonTapped() {
+        guard let imageSet = imageSet else { return }
+        
+        presentViewController(UIActivityViewController(activityItems: imageSet.images, applicationActivities: []),
+            animated: true, completion: nil)
+    }
+    
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
@@ -78,7 +100,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         imageSet = ImageSet(originalImage: originalImage, editedImage: editedImage, cropRect: cropRect)
         
         picker.dismissViewControllerAnimated(true) {
-            self.stepper.value = 0
+            self.stepper.value = Constants.defaultIntermediateImageCount
             
             self.collectionView.reloadData()
         }
@@ -102,14 +124,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return cell
     }
     
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if let imageSet = imageSet {
-            let image = imageSet[indexPath.row]
-            
-            return CGSizeMake(view.frame.width, (view.frame.width * image.size.height)/image.size.width)
-        }
-        else {
-            return CGSizeZero
-        }
+        guard let imageSet = imageSet else { return CGSizeZero }
+        
+        let image = imageSet[indexPath.row]
+        
+        return CGSizeMake(view.frame.width, (view.frame.width * image.size.height)/image.size.width)
     }
 }
