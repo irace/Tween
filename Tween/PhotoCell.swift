@@ -18,7 +18,9 @@ class PhotoCell: UICollectionViewCell {
     }
     
     lazy var imageView: UIImageView = {
-        return UIImageView(frame: self.frame)
+        let imageView = UIImageView(frame: self.frame)
+        imageView.contentMode = .ScaleAspectFit
+        return imageView
     }()
     
     // MARK: - Initializers

@@ -12,6 +12,8 @@
 		93AEDC1C1BD9698D0001B43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AEDC1B1BD9698D0001B43A /* Assets.xcassets */; };
 		93AEDC1F1BD9698D0001B43A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 93AEDC1D1BD9698D0001B43A /* LaunchScreen.storyboard */; };
 		93AEDC271BD96F3A0001B43A /* PhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEDC261BD96F3A0001B43A /* PhotoCell.swift */; settings = {ASSET_TAGS = (); }; };
+		93AEDC2A1BD9D24E0001B43A /* ImageSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEDC291BD9D24E0001B43A /* ImageSet.swift */; settings = {ASSET_TAGS = (); }; };
+		93AEDC2C1BD9D2850001B43A /* UIImage+Crop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEDC2B1BD9D2850001B43A /* UIImage+Crop.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		93AEDC1E1BD9698D0001B43A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93AEDC201BD9698D0001B43A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		93AEDC261BD96F3A0001B43A /* PhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCell.swift; sourceTree = "<group>"; };
+		93AEDC291BD9D24E0001B43A /* ImageSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageSet.swift; sourceTree = "<group>"; };
+		93AEDC2B1BD9D2850001B43A /* UIImage+Crop.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+Crop.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,7 +59,9 @@
 			isa = PBXGroup;
 			children = (
 				93AEDC141BD9698D0001B43A /* AppDelegate.swift */,
+				93AEDC291BD9D24E0001B43A /* ImageSet.swift */,
 				93AEDC261BD96F3A0001B43A /* PhotoCell.swift */,
+				93AEDC2B1BD9D2850001B43A /* UIImage+Crop.swift */,
 				93AEDC161BD9698D0001B43A /* ViewController.swift */,
 				93AEDC281BD975480001B43A /* Resources */,
 			);
@@ -141,8 +147,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93AEDC2A1BD9D24E0001B43A /* ImageSet.swift in Sources */,
 				93AEDC171BD9698D0001B43A /* ViewController.swift in Sources */,
 				93AEDC271BD96F3A0001B43A /* PhotoCell.swift in Sources */,
+				93AEDC2C1BD9D2850001B43A /* UIImage+Crop.swift in Sources */,
 				93AEDC151BD9698D0001B43A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -283,6 +291,7 @@
 				93AEDC251BD9698D0001B43A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

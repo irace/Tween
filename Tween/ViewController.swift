@@ -8,53 +8,7 @@
 
 import UIKit
 
-func generateIntermediatesFromOriginalImage(original: UIImage, cropRect: CGRect, intermediateCount: Int = 0) -> [UIImage] {
-    return []
-}
-
-struct ImageSet {
-    let originalImage: UIImage
-    let editedImage: UIImage
-    let cropRect: CGRect
-    
-    var intermediateCount: Int = 0 {
-        didSet {
-            generateIntermediates()
-        }
-    }
-    
-    var intermediateImages: [UIImage] = []
-    
-    var images: [UIImage] {
-        var images = [originalImage]
-        images.appendContentsOf(intermediateImages)
-        images.append(editedImage)
-        
-        return images
-    }
-    
-    var count: Int {
-        return images.count
-    }
-    
-    init(originalImage: UIImage, editedImage: UIImage, cropRect: CGRect) {
-        self.originalImage = originalImage
-        self.editedImage = editedImage
-        self.cropRect = cropRect
-        
-        generateIntermediates()
-    }
-    
-    mutating func generateIntermediates() {
-        intermediateImages = generateIntermediatesFromOriginalImage(originalImage, cropRect: cropRect, intermediateCount: intermediateCount)
-    }
-    
-    subscript(index: Int) -> UIImage {
-        return images[index]
-    }
-}
-
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     lazy var collectionView: UICollectionView = {
         let frame = self.view.frame
         
@@ -77,8 +31,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         return stepper
     }()
     
-    var imageSet: ImageSet?
-    
+    var imageSet: ImageSet? {
+        didSet {
+            self.collectionView.reloadData()
+        }
+    }
+
     // MARK: - UIViewController
     
     override func viewDidLoad() {
@@ -113,11 +71,15 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // MARK: - UIImagePickerControllerDelegate
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        imageSet = ImageSet(originalImage: info[UIImagePickerControllerOriginalImage] as! UIImage,
-            editedImage: info[UIImagePickerControllerEditedImage] as! UIImage,
-            cropRect: (info[UIImagePickerControllerCropRect] as! NSValue).CGRectValue())
+        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
+        let cropRect = (info[UIImagePickerControllerCropRect] as! NSValue).CGRectValue()
+        
+        imageSet = ImageSet(originalImage: originalImage, editedImage: editedImage, cropRect: cropRect)
         
         picker.dismissViewControllerAnimated(true) {
+            self.stepper.value = 0
+            
             self.collectionView.reloadData()
         }
     }
@@ -138,5 +100,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         }
 
         return cell
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if let imageSet = imageSet {
+            let image = imageSet[indexPath.row]
+            
+            return CGSizeMake(view.frame.width, (view.frame.width * image.size.height)/image.size.width)
+        }
+        else {
+            return CGSizeZero
+        }
     }
 }
