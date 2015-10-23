@@ -11,16 +11,11 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    let coordinator = Coordinator()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        let navigationController = UINavigationController(rootViewController: ViewController())
-        navigationController.toolbarHidden = false
-        navigationController.navigationBarHidden = true
-        navigationController.toolbar.tintColor = .whiteColor()
-        navigationController.toolbar.barTintColor = .blackColor()
-        
         window = UIWindow()
-        window?.rootViewController = navigationController
+        window?.rootViewController = coordinator.rootViewController
         window?.makeKeyAndVisible()
         
         return true

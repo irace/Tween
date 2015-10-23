@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		939615721BDA904F00C3E7D3 /* FBShimmeringLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 9396156F1BDA904F00C3E7D3 /* FBShimmeringLayer.m */; settings = {ASSET_TAGS = (); }; };
+		939615731BDA904F00C3E7D3 /* FBShimmeringView.m in Sources */ = {isa = PBXBuildFile; fileRef = 939615711BDA904F00C3E7D3 /* FBShimmeringView.m */; settings = {ASSET_TAGS = (); }; };
+		939615751BDA9D5B00C3E7D3 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939615741BDA9D5B00C3E7D3 /* Coordinator.swift */; settings = {ASSET_TAGS = (); }; };
+		939615771BDAA22200C3E7D3 /* PhotoCollectionViewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 939615761BDAA22200C3E7D3 /* PhotoCollectionViewProvider.swift */; settings = {ASSET_TAGS = (); }; };
 		93AEDC151BD9698D0001B43A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEDC141BD9698D0001B43A /* AppDelegate.swift */; };
 		93AEDC171BD9698D0001B43A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93AEDC161BD9698D0001B43A /* ViewController.swift */; };
 		93AEDC1C1BD9698D0001B43A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 93AEDC1B1BD9698D0001B43A /* Assets.xcassets */; };
@@ -17,6 +21,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9396156C1BDA904F00C3E7D3 /* Tween-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tween-Bridging-Header.h"; sourceTree = "<group>"; };
+		9396156D1BDA904F00C3E7D3 /* FBShimmering.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmering.h; sourceTree = "<group>"; };
+		9396156E1BDA904F00C3E7D3 /* FBShimmeringLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringLayer.h; sourceTree = "<group>"; };
+		9396156F1BDA904F00C3E7D3 /* FBShimmeringLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringLayer.m; sourceTree = "<group>"; };
+		939615701BDA904F00C3E7D3 /* FBShimmeringView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBShimmeringView.h; sourceTree = "<group>"; };
+		939615711BDA904F00C3E7D3 /* FBShimmeringView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBShimmeringView.m; sourceTree = "<group>"; };
+		939615741BDA9D5B00C3E7D3 /* Coordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		939615761BDAA22200C3E7D3 /* PhotoCollectionViewProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewProvider.swift; sourceTree = "<group>"; };
 		93AEDC111BD9698D0001B43A /* Tween.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tween.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		93AEDC141BD9698D0001B43A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		93AEDC161BD9698D0001B43A /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,10 +51,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9396156B1BDA903300C3E7D3 /* Shimmer */ = {
+			isa = PBXGroup;
+			children = (
+				9396156D1BDA904F00C3E7D3 /* FBShimmering.h */,
+				9396156E1BDA904F00C3E7D3 /* FBShimmeringLayer.h */,
+				9396156F1BDA904F00C3E7D3 /* FBShimmeringLayer.m */,
+				939615701BDA904F00C3E7D3 /* FBShimmeringView.h */,
+				939615711BDA904F00C3E7D3 /* FBShimmeringView.m */,
+				9396156C1BDA904F00C3E7D3 /* Tween-Bridging-Header.h */,
+			);
+			name = Shimmer;
+			sourceTree = "<group>";
+		};
 		93AEDC081BD9698C0001B43A = {
 			isa = PBXGroup;
 			children = (
 				93AEDC131BD9698D0001B43A /* Tween */,
+				9396156B1BDA903300C3E7D3 /* Shimmer */,
 				93AEDC121BD9698D0001B43A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -64,6 +90,8 @@
 				93AEDC2B1BD9D2850001B43A /* UIImage+Crop.swift */,
 				93AEDC161BD9698D0001B43A /* ViewController.swift */,
 				93AEDC281BD975480001B43A /* Resources */,
+				939615741BDA9D5B00C3E7D3 /* Coordinator.swift */,
+				939615761BDAA22200C3E7D3 /* PhotoCollectionViewProvider.swift */,
 			);
 			path = Tween;
 			sourceTree = "<group>";
@@ -104,6 +132,7 @@
 		93AEDC091BD9698C0001B43A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Bryan Irace";
 				TargetAttributes = {
@@ -147,9 +176,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				939615751BDA9D5B00C3E7D3 /* Coordinator.swift in Sources */,
+				939615721BDA904F00C3E7D3 /* FBShimmeringLayer.m in Sources */,
 				93AEDC2A1BD9D24E0001B43A /* ImageSet.swift in Sources */,
 				93AEDC171BD9698D0001B43A /* ViewController.swift in Sources */,
+				939615731BDA904F00C3E7D3 /* FBShimmeringView.m in Sources */,
 				93AEDC271BD96F3A0001B43A /* PhotoCell.swift in Sources */,
+				939615771BDAA22200C3E7D3 /* PhotoCollectionViewProvider.swift in Sources */,
 				93AEDC2C1BD9D2850001B43A /* UIImage+Crop.swift in Sources */,
 				93AEDC151BD9698D0001B43A /* AppDelegate.swift in Sources */,
 			);
@@ -254,10 +287,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Tween/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.irace.Tween;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tween-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -265,10 +301,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Tween/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.irace.Tween;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Tween-Bridging-Header.h";
 			};
 			name = Release;
 		};

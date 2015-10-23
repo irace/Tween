@@ -7,14 +7,19 @@
 //
 
 import UIKit
+import MobileCoreServices
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,
-UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
+protocol ViewControllerDelegate {
+    func viewControllerDidSelectCameraButton(viewController: ViewController)
+}
+
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     struct Constants {
         static let defaultIntermediateImageCount: Double = 0
         static let maxIntermediateImageCount: Double = 2
     }
+    
+    let delegate: ViewControllerDelegate
     
     lazy var collectionView: UICollectionView = {
         let frame = self.view.frame
@@ -27,14 +32,19 @@ UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFl
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundView = {
-            let label = UILabel()
+            let label = UILabel(frame: frame)
             label.text = "Choose a photo from your library to get started"
             label.font = UIFont.systemFontOfSize(26)
             label.numberOfLines = 0
             label.lineBreakMode = .ByWordWrapping
             label.textAlignment = .Center
             label.textColor = .whiteColor()
-            return label
+            
+            let shimmerView = FBShimmeringView(frame: frame)
+            shimmerView.contentView = label
+            shimmerView.shimmering = true
+            
+            return shimmerView
             }()
         collectionView.registerClass(PhotoCell.self, forCellWithReuseIdentifier: PhotoCell.reuseIdentifier)
         
@@ -49,6 +59,7 @@ UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFl
     
     lazy var stepper: UIStepper = {
         let stepper = UIStepper()
+        stepper.enabled = false
         stepper.maximumValue = Constants.maxIntermediateImageCount
         stepper.addTarget(self, action: "stepperChanged", forControlEvents: .ValueChanged)
         return stepper
@@ -56,10 +67,37 @@ UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFl
     
     var imageSet: ImageSet? {
         didSet {
+            stepper.enabled = imageSet != nil
             actionButton.enabled = imageSet != nil
             
             collectionView.reloadData()
         }
+    }
+    
+    // MARK: - Initialization
+    
+    init(delegate: ViewControllerDelegate) {
+        self.delegate = delegate
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("Use init(delegate:")
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
+        fatalError("Use init(delegate:")
+    }
+    
+    // MARK: - Public methods
+    
+    func imageSetWasReset(imageSet: ImageSet) {
+        self.imageSet = imageSet
+        
+        self.stepper.value = Constants.defaultIntermediateImageCount
+        
+        self.collectionView.reloadData()
     }
 
     // MARK: - UIViewController
@@ -81,12 +119,7 @@ UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFl
     // MARK: - Actions
     
     func cameraButtonTapped() {
-        let picker = UIImagePickerController()
-        picker.sourceType = .PhotoLibrary
-        picker.delegate = self
-        picker.allowsEditing = true
-        
-        presentViewController(picker, animated: true, completion: nil)
+        delegate.viewControllerDidSelectCameraButton(self)
     }
     
     func stepperChanged() {
@@ -98,22 +131,6 @@ UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFl
         
         presentViewController(UIActivityViewController(activityItems: imageSet.images, applicationActivities: []),
             animated: true, completion: nil)
-    }
-    
-    // MARK: - UIImagePickerControllerDelegate
-    
-    func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        let originalImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        let editedImage = info[UIImagePickerControllerEditedImage] as! UIImage
-        let cropRect = (info[UIImagePickerControllerCropRect] as! NSValue).CGRectValue()
-        
-        imageSet = ImageSet(originalImage: originalImage, editedImage: editedImage, cropRect: cropRect)
-        
-        picker.dismissViewControllerAnimated(true) {
-            self.stepper.value = Constants.defaultIntermediateImageCount
-            
-            self.collectionView.reloadData()
-        }
     }
     
     // MARK: - UICollectionViewDataSource
