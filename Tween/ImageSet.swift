@@ -9,6 +9,7 @@
 import UIKit
 
 struct ImageSet {
+    let description
     let originalImage: UIImage
     let editedImage: UIImage
     let cropRect: CGRect
